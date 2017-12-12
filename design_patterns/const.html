@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何使用es5设置常量</title>
+</head>
+<body>
+    <script>
+        // const user = 'lj';
+        // // user = '小仙女';
+        // const arr = [1,2];
+        // arr.push(3);
+        // 不使用es6 如何实现const
+        // 如何实现私有的属性和方法
+        // 常量  能读取到  不能修改
+        // 不能设置 对象 设置 ， 让这个变量跟你变量的查找作用域 不会经过 但如何读取
+        // 块级作用域 函数作用域 全局
+        // 自执行函数 立即执行
+        // 函数作用域
+        // 外界就访问不到里面了
+        // UPPER_BOUND = 100; 不加var就成为全局变量，外界就可以访问
+        var User = (function(){
+            var UPPER_BOUND = 100;
+            // 如何提供出来
+            var ctor = function(){
+
+            }
+            // 静态方法
+            ctor.getUPPER_BOUND = function(){
+                return UPPER_BOUND;
+            }
+            return ctor;
+        })();
+        console.log(User.getUPPER_BOUND());
+    </script>
+</body>
+</html>
