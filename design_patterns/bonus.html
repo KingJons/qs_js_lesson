@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bonus</title>
+</head>
+<body>
+    <script>
+        // 年终奖会发多少钱？
+        // 评级 S 4个月 A 3个月 B 2个月
+        // 年终奖计算函数
+        // function calculateBonus(performanceLevel,salary) {
+            // 老板想怎么让你过年的策略  
+            // 计算方法
+            // 王者荣耀团队
+            // 荒野行动
+            // S+ 一百个月
+            // 会计找程序员，改下代码
+            // 健壮
+            // if (performanceLevel == 'S+'){
+            //     return 100*salary;
+            // }else if (performanceLevel == 'S'){
+            //     return 4*salary;
+            // }else if(performanceLevel == 'A'){
+            //     return 3*salary;
+            // }else {
+            //     return 2*salary;
+            // }
+            // 评级越来越多，T3-T10 P1*P10
+            // 核心计算函数会一直被修改，违反了设计模式里的开放-封闭原则
+            // 开放 API
+            // 封闭 将实现逻辑自我封闭
+            // 缺点 制定规则的人会改来改去，受伤的是程序员
+        // }
+
+
+        // console.log(calculateBonus('S+',30000));
+        // 如何优化 干掉具象,实现面相接口编程,将相同部分抽象出来,
+        // 具体逻辑封装
+        
+        // var calculateBonus = function (performanceLevel,salary) {
+            // 相同点 等级对应年终奖的数量
+            // 算法？ 规则  什么等级发多少钱
+            // if (performanceLevel == 'S'){
+                // 规则 剥离
+                // return peformacS(salary);
+            // }
+            // 解耦
+            // if (performanceLevel == 'A'){
+                // 规则 剥离
+                // return peformacA(salary);
+            // }
+            // if (performanceLevel == 'B'){
+                // 规则 剥离
+                // return peformacB(salary);
+            // }
+        // }
+        // 策略模式: 将一个个的计算方法抽象出来，
+        // 出现新的规则后，加一个新的方法就好了
+        // 而不需要去修改原来的主程逻辑
+        // 开发-封闭原则: 修改原有代码或逻辑时，只要采用增量式的开发方式，不去修改到原有主干逻辑
+        // var performacS = function(salary) {
+        //     return 4*salary;
+        // }
+        // var performacA = function(salary) {
+        //     return 3*salary;
+        // }
+        // var performacB = function(salary) {
+        //     return 2*salary;
+        // }
+        // 封装成一个策略类
+        // 策略算法可能非常复杂，所以将它抽离并解耦，复杂实现进行模块化，既自由健壮，又好部署
+        var Bonus = function() {
+            this.salary = null;
+            // 会用什么算法？ 算法可换，不同的员工换不同的计算方法就好
+            this.strategy = null;
+        }
+
+        Bonus.prototype.setSalry = function(salary) {
+            this.salary = salary;
+        }
+        Bonus.prototype.setStrategy = function(strategy) {
+            this.strategy = strategy;
+        }
+        Bonus.prototype.getBonus = function () {
+            // 算法类
+            return this.strategy.calculate(this.salary);
+        }
+        // 面向对象之后，说明更细致
+        // 接口：calculate 算法类实现
+        // 发年终奖 Bonus实现
+        var PerformanceA = function(){};
+        PerformanceA.prototype.calculate = function(salary) {
+            return salary*4;
+        }
+        var bouns = new Bonus();
+        bouns.setSalry(20000);
+        bouns.setStrategy(new PerformanceA());
+        console.log(bouns.getBonus());
+    </script>
+</body>
+</html>
